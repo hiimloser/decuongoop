@@ -79,9 +79,14 @@ bool Oto::operator <(const Oto &b)const
 }
 int main()
 {
+	//cau 1
+	PhuongTienGiaoThong ptgt;
+	ptgt.Nhap();
+	ptgt.Xuat();
+	//cau2
 	Oto o[20];
 	int n;
-	cout<<"Tong so Oto : ";
+	cout<<"\nTong so Oto : ";
 	cin>>n;
 	cout<<"Nhap thong tin Oto :\n";
 	for(int i=0;i<n;i++)
