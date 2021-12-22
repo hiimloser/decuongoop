@@ -1,0 +1,121 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+class HangHoa{
+	private:
+		string MaHang, TenHang;
+	public:
+		HangHoa(string MaHang = "",string TenHang = "");
+		~HangHoa();
+		void Nhap();
+		void Xuat() const;
+};
+HangHoa::HangHoa(string MaHang,string TenHang)
+{
+	this->MaHang = MaHang;
+	this->TenHang= TenHang;
+}
+HangHoa::~HangHoa()
+{
+	MaHang;
+	TenHang;
+}
+void HangHoa::Nhap()
+{
+	cout<<"Ma hang : ";
+	fflush(stdin);
+	getline(cin,MaHang);
+	cout<<"Ten hang : ";
+	fflush(stdin);
+	getline(cin,TenHang);
+}
+void HangHoa::Xuat() const
+{
+	cout<<MaHang<<" "<<TenHang<<" ";
+}
+class MayTinh:private HangHoa{
+	private:
+		string NhaSanXuat;
+		int NamSanXuat, GiaBanNiemYet;
+	public:
+		static float TiLeChietKhau;
+	public:
+		MayTinh();
+		~MayTinh();
+		void Nhap();
+		void Xuat() const;
+		float GiaNhap() const;
+};
+MayTinh::MayTinh()
+{
+	NhaSanXuat = "";
+	NamSanXuat = GiaBanNiemYet = 0;
+}
+MayTinh::~MayTinh()
+{
+	NhaSanXuat = "";
+	NamSanXuat = GiaBanNiemYet = 0;
+}
+void MayTinh::Nhap()
+{
+	HangHoa::Nhap();
+	cout<<"Nha san xuat : ";
+	fflush(stdin);
+	getline(cin,NhaSanXuat);
+	cout<<"Nam san xuat : ";
+	cin>>NamSanXuat;
+	cout<<"Gia niem yet : ";
+	cin>>GiaBanNiemYet;
+}
+void MayTinh::Xuat() const
+{
+	HangHoa::Xuat();
+	cout<<NhaSanXuat<<" "<<NamSanXuat<<" "<<GiaBanNiemYet<<" ";
+}
+float MayTinh::TiLeChietKhau = 0.2;
+float MayTinh::GiaNhap() const
+{
+	return GiaBanNiemYet - GiaBanNiemYet * TiLeChietKhau;
+}
+int main()
+{
+	HangHoa a;
+	a.Nhap();
+	a.Xuat();
+	MayTinh b[20];
+	int n;
+	cout<<"\nTong so May Tinh : ";
+	cin>>n;
+	cout<<"Nhap thong May Tinh :\n";
+	for(int i=0;i<n;i++)
+	{
+		b[i].Nhap();
+		cout<<endl;
+	}
+	cout<<"Xuat thong May Tinh :\n";
+	for(int i=0;i<n;i++)
+	{
+		b[i].Xuat();
+		cout<<b[i].GiaNhap();
+		cout<<endl;
+	}
+	cout<<"Gia nhap thap nhat : \n";
+	float min = b[0].GiaNhap();
+	for(int i=0;i<n;i++)
+	{
+		if(min>b[i].GiaNhap())
+		{
+			min = b[i].GiaNhap();
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		if(b[i].GiaNhap()==min)
+		{
+			b[i].Xuat();
+			cout<<b[i].GiaNhap();
+			cout<<endl;
+		}
+	}
+	return 0;
+}
