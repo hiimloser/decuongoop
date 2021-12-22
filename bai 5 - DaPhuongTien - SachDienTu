@@ -24,7 +24,8 @@ DaPhuongTien::~DaPhuongTien()
 void DaPhuongTien::Nhap()
 {
 	cout<<"Ten goi : ";
-	cin>>TenGoi;
+	fflush(stdin);
+	getline(cin,TenGoi);
 	cout<<"Gia ban : ";
 	cin>>GiaBan;
 }
@@ -57,7 +58,8 @@ void operator >> (istream &is,SachDienTu &s)
 {
 	s.Nhap();
 	cout<<"Tac gia : ";
-	is>>s.TacGia;
+	fflush(stdin);
+	getline(is,s.TacGia);
 	cout<<"So trang : ";
 	is>>s.SoTrang;
 }
