@@ -1,0 +1,119 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+class PhuongTienGiaoThong{
+	private:
+		string HangSanXuat, TenPhuongTien;
+	protected:
+		float VanTocToiDa;
+	public:
+		PhuongTienGiaoThong();
+		~PhuongTienGiaoThong();
+		void nhap();
+		void xuat();
+};
+PhuongTienGiaoThong::PhuongTienGiaoThong()
+{
+	HangSanXuat = "";
+	TenPhuongTien="";
+	VanTocToiDa=0;
+}
+PhuongTienGiaoThong::~PhuongTienGiaoThong()
+{
+	HangSanXuat = "";
+	TenPhuongTien="";
+	VanTocToiDa=0;
+}
+void PhuongTienGiaoThong::nhap()
+{
+	cout<<"Hang san xuat : ";
+	fflush(stdin);
+	getline(cin,HangSanXuat);
+	cout<<"Ten phuong tien : ";
+	fflush(stdin);
+	getline(cin,TenPhuongTien);
+	cout<<"Van toc toi da : ";
+	cin>>VanTocToiDa;
+}
+void PhuongTienGiaoThong::xuat()
+{
+	cout<<HangSanXuat<<" "<<TenPhuongTien<<" "<<VanTocToiDa<<" ";
+}
+class Oto:private PhuongTienGiaoThong{
+	private:
+		int SoBanh;
+	public:
+		Oto();
+		~Oto();
+		void nhap();
+		void xuat();
+		float VanTocCoSo() const;
+		bool operator < (const Oto &b) const;
+};
+Oto::Oto()
+{
+	SoBanh = 0;
+}
+Oto::~Oto()
+{
+	SoBanh = 0;
+}
+void Oto::nhap()
+{
+	PhuongTienGiaoThong::nhap();
+	cout<<"So banh : ";
+	cin>>SoBanh;
+}
+void Oto::xuat()
+{
+	PhuongTienGiaoThong::xuat();
+	cout<<SoBanh<<" ";
+}
+float Oto::VanTocCoSo() const
+{
+	return VanTocToiDa/SoBanh;
+}
+bool Oto::operator <(const Oto &b)const
+{
+	return VanTocCoSo()<b.VanTocCoSo();
+}
+int main()
+{
+	Oto o[20];
+	int n;
+	cout<<"Tong so Oto : ";
+	cin>>n;
+	cout<<"Nhap thong tin Oto :\n";
+	for(int i=0;i<n;i++)
+	{
+		o[i].nhap();
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Oto :\n";
+	for(int i=0;i<n;i++)
+	{
+		o[i].xuat();
+		cout<<o[i].VanTocCoSo();
+		cout<<endl;
+	}
+	cout<<"Thong tin Oto co van toc co so min : \n";
+	Oto min = o[0];
+	cout<<"Nhap thong tin Oto :\n";
+	for(int i=0;i<n;i++)
+	{
+		if(min<o[i]);
+		{
+			min=o[i];
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		if(o[i].VanTocCoSo()==min.VanTocCoSo())
+		{
+			o[i].xuat();
+			cout<<o[i].VanTocCoSo();
+			cout<<endl;
+		}
+	}
+	return 0;
+}
