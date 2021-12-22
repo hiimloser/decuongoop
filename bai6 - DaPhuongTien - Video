@@ -1,0 +1,106 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+class DaPhuongTien{
+	private:
+		string TenGoi;
+		int GiaBan;
+	public:
+		DaPhuongTien(string TenGoi="",int GiaBan = 0);
+		~DaPhuongTien();
+		void Nhap();
+		void Xuat() const;
+};
+DaPhuongTien::DaPhuongTien(string TenGoi,int GiaBan)
+{
+	this->TenGoi = TenGoi;
+	this->GiaBan = GiaBan;
+}
+DaPhuongTien::~DaPhuongTien()
+{
+	TenGoi;
+	GiaBan;
+}
+void DaPhuongTien::Nhap()
+{
+	cout<<"Ten goi : ";
+	fflush(stdin);
+	getline(cin,TenGoi);
+	cout<<"Gia ban : ";
+	cin>>GiaBan;
+}
+void DaPhuongTien::Xuat() const
+{
+	cout<<TenGoi<<" "<<GiaBan<<" ";
+}
+class Video:private DaPhuongTien{
+	private:
+		string DaoDien;
+		int ThoiLuong;
+	public:
+		Video();
+		~Video();
+		friend void operator >> (istream &is,Video &s);
+		friend void operator << (ostream &os,const Video &s);
+		bool KiemTra(string DaoDien_SoSanh) const;
+};
+Video::Video()
+{
+	DaoDien ="";
+	ThoiLuong = 0;
+}
+Video::~Video()
+{
+	DaoDien ="";
+	ThoiLuong = 0;
+}
+void operator >> (istream &is,Video &s)
+{
+	s.Nhap();
+	cout<<"Dao dien : ";
+	fflush(stdin);
+	getline(is,s.DaoDien);
+	cout<<"Thoi luong: ";
+	is>>s.ThoiLuong;
+}
+void operator << (ostream &os,const Video &s)
+{
+	s.Xuat();
+	os<<s.DaoDien<<" "<<s.ThoiLuong<<" ";
+}
+bool Video::KiemTra(string DaoDien_SoSanh) const
+{
+	return DaoDien == DaoDien_SoSanh;
+}
+int main()
+{
+	DaPhuongTien a;
+	a.Nhap();
+	a.Xuat();
+	Video b[20];
+	int n;
+	cout<<"\nTong so Video : ";
+	cin>>n;
+	cout<<"Nhap thong tin Video :\n";
+	for(int i=0;i<n;i++)
+	{
+		cin>>b[i];
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Video :\n";
+	for(int i=0;i<n;i++)
+	{
+		cout<<b[i];
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Video cua Nguyen Quang Dung:\n";
+	for(int i=0;i<n;i++)
+	{
+		if(b[i].KiemTra("Nguyen Quang Dung"))
+		{
+			cout<<b[i];
+			cout<<endl;
+		}
+	}
+	return 0;
+}
