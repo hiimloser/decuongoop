@@ -1,0 +1,104 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+class DaPhuongTien{
+	private:
+		string TenGoi;
+		int GiaBan;
+	public:
+		DaPhuongTien(string TenGoi="",int GiaBan = 0);
+		~DaPhuongTien();
+		void Nhap();
+		void Xuat() const;
+};
+DaPhuongTien::DaPhuongTien(string TenGoi,int GiaBan)
+{
+	this->TenGoi = TenGoi;
+	this->GiaBan = GiaBan;
+}
+DaPhuongTien::~DaPhuongTien()
+{
+	TenGoi;
+	GiaBan;
+}
+void DaPhuongTien::Nhap()
+{
+	cout<<"Ten goi : ";
+	cin>>TenGoi;
+	cout<<"Gia ban : ";
+	cin>>GiaBan;
+}
+void DaPhuongTien::Xuat() const
+{
+	cout<<TenGoi<<" "<<GiaBan<<" ";
+}
+class SachDienTu:private DaPhuongTien{
+	private:
+		string TacGia;
+		int SoTrang;
+	public:
+		SachDienTu();
+		~SachDienTu();
+		friend void operator >> (istream &is,SachDienTu &s);
+		friend void operator << (ostream &os,const SachDienTu &s);
+		bool KiemTraSoLuong(int SoTrang_SoSanh) const;
+};
+SachDienTu::SachDienTu()
+{
+	TacGia ="";
+	SoTrang = 0;
+}
+SachDienTu::~SachDienTu()
+{
+	TacGia ="";
+	SoTrang = 0;
+}
+void operator >> (istream &is,SachDienTu &s)
+{
+	s.Nhap();
+	cout<<"Tac gia : ";
+	is>>s.TacGia;
+	cout<<"So trang : ";
+	is>>s.SoTrang;
+}
+void operator << (ostream &os,const SachDienTu &s)
+{
+	s.Xuat();
+	os<<s.TacGia<<" "<<s.SoTrang<<" ";
+}
+bool SachDienTu::KiemTraSoLuong(int SoTrang_SoSanh) const
+{
+	return SoTrang < SoTrang_SoSanh;
+}
+int main()
+{
+	DaPhuongTien a;
+	a.Nhap();
+	a.Xuat();
+	SachDienTu b[20];
+	int n;
+	cout<<"\nTong so Sach Dien Tu : ";
+	cin>>n;
+	cout<<"Nhap thong tin Sach Dien Tu :\n";
+	for(int i=0;i<n;i++)
+	{
+		cin>>b[i];
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Sach Dien Tu :\n";
+	for(int i=0;i<n;i++)
+	{
+		cout<<b[i];
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Sach Dien Tu so trang < 50:\n";
+	for(int i=0;i<n;i++)
+	{
+		if(b[i].KiemTraSoLuong(50))
+		{
+			cout<<b[i];
+			cout<<endl;
+		}
+	}
+	return 0;
+}
