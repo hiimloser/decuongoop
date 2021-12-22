@@ -1,0 +1,121 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+class Nguoi{
+	private:
+		string MaDinhDanh, HoTen;
+	protected:
+		int NamSinh;
+	public:
+		Nguoi();
+		~Nguoi();
+		void Nhap();
+		void Xuat() const;
+};
+Nguoi::Nguoi()
+{
+	MaDinhDanh = "";
+	HoTen = "";
+	NamSinh = 0;
+}
+Nguoi::~Nguoi()
+{
+	MaDinhDanh = "";
+	HoTen = "";
+	NamSinh = 0;
+}
+void Nguoi::Nhap()
+{
+	cout<<"Ma dinh danh : ";
+	fflush(stdin);
+	getline(cin,MaDinhDanh);
+	cout<<"Ho ten : ";
+	fflush(stdin);
+	getline(cin,HoTen);
+	cout<<"Nam sinh : ";
+	cin>>NamSinh;
+}
+void Nguoi::Xuat() const
+{
+	cout<<MaDinhDanh<<" "<<HoTen<<" "<<NamSinh<<" ";
+}
+class NhanVien : private Nguoi{
+	private:
+		float HeSoLuong;
+		int TienPhuCap;
+	public: 
+		static float MucLuong;
+	public:
+		NhanVien();
+		~NhanVien();
+		void Nhap();
+		void Xuat() const;
+		float TinhLuong()const;
+};
+float NhanVien::MucLuong = 155000;
+NhanVien::NhanVien()
+{
+	HeSoLuong = 0;
+	TienPhuCap = 0;
+}
+NhanVien::~NhanVien()
+{
+	HeSoLuong = 0;
+	TienPhuCap = 0;
+}
+void NhanVien::Nhap()
+{
+	Nguoi::Nhap();
+	cout<<"He so luong : ";
+	cin>>HeSoLuong;
+	cout<<"Tien phu cap : ";
+	cin>>TienPhuCap;
+}
+void NhanVien::Xuat() const
+{
+	Nguoi::Xuat();
+	cout<<HeSoLuong<<" "<<TienPhuCap<<" ";
+}
+float NhanVien::TinhLuong() const
+{
+	return HeSoLuong * MucLuong + TienPhuCap;
+}
+int main()
+{
+	NhanVien a[20];
+	int n;
+	cout<<"Tong so Nhan Vien : ";
+	cin>>n;
+	cout<<"Nhap thong tin Nhan Vien : \n";
+	for(int i=0;i<n;i++)
+	{
+		a[i].Nhap();
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Nhan Vien : \n";
+	for(int i=0;i<n;i++)
+	{
+		a[i].Xuat();
+		cout<<a[i].TinhLuong();
+		cout<<endl;
+	}
+	cout<<"Thong tin Nhan Vien luong cao :\n";
+	float max = a[0].TinhLuong();
+	for(int i=0;i<n;i++)
+	{
+		if(max < a[i].TinhLuong())
+		{
+			max = a[i].TinhLuong();
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		if(a[i].TinhLuong()==max)
+		{
+			a[i].Xuat();
+			cout<<a[i].TinhLuong();
+			cout<<endl;
+		}
+	}
+	return 0;
+}
