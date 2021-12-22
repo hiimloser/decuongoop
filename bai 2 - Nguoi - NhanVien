@@ -82,9 +82,14 @@ float NhanVien::TinhLuong() const
 }
 int main()
 {
+	//cau1
+	Nguoi b;
+	b.Nhap();
+	b.Xuat();
+	//cau2
 	NhanVien a[20];
 	int n;
-	cout<<"Tong so Nhan Vien : ";
+	cout<<"\nTong so Nhan Vien : ";
 	cin>>n;
 	cout<<"Nhap thong tin Nhan Vien : \n";
 	for(int i=0;i<n;i++)
