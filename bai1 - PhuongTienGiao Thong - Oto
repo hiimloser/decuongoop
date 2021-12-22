@@ -9,8 +9,8 @@ class PhuongTienGiaoThong{
 	public:
 		PhuongTienGiaoThong();
 		~PhuongTienGiaoThong();
-		void nhap();
-		void xuat();
+		void Nhap();
+		void Xuat();
 };
 PhuongTienGiaoThong::PhuongTienGiaoThong()
 {
@@ -24,7 +24,7 @@ PhuongTienGiaoThong::~PhuongTienGiaoThong()
 	TenPhuongTien="";
 	VanTocToiDa=0;
 }
-void PhuongTienGiaoThong::nhap()
+void PhuongTienGiaoThong::Nhap()
 {
 	cout<<"Hang san xuat : ";
 	fflush(stdin);
@@ -35,7 +35,7 @@ void PhuongTienGiaoThong::nhap()
 	cout<<"Van toc toi da : ";
 	cin>>VanTocToiDa;
 }
-void PhuongTienGiaoThong::xuat()
+void PhuongTienGiaoThong::Xuat()
 {
 	cout<<HangSanXuat<<" "<<TenPhuongTien<<" "<<VanTocToiDa<<" ";
 }
@@ -45,8 +45,8 @@ class Oto:private PhuongTienGiaoThong{
 	public:
 		Oto();
 		~Oto();
-		void nhap();
-		void xuat();
+		void Nhap();
+		void Xuat();
 		float VanTocCoSo() const;
 		bool operator < (const Oto &b) const;
 };
@@ -58,15 +58,15 @@ Oto::~Oto()
 {
 	SoBanh = 0;
 }
-void Oto::nhap()
+void Oto::Nhap()
 {
-	PhuongTienGiaoThong::nhap();
+	PhuongTienGiaoThong::Nhap();
 	cout<<"So banh : ";
 	cin>>SoBanh;
 }
-void Oto::xuat()
+void Oto::Xuat()
 {
-	PhuongTienGiaoThong::xuat();
+	PhuongTienGiaoThong::Xuat();
 	cout<<SoBanh<<" ";
 }
 float Oto::VanTocCoSo() const
@@ -86,13 +86,13 @@ int main()
 	cout<<"Nhap thong tin Oto :\n";
 	for(int i=0;i<n;i++)
 	{
-		o[i].nhap();
+		o[i].Nhap();
 		cout<<endl;
 	}
 	cout<<"Xuat thong tin Oto :\n";
 	for(int i=0;i<n;i++)
 	{
-		o[i].xuat();
+		o[i].Xuat();
 		cout<<o[i].VanTocCoSo();
 		cout<<endl;
 	}
@@ -110,7 +110,7 @@ int main()
 	{
 		if(o[i].VanTocCoSo()==min.VanTocCoSo())
 		{
-			o[i].xuat();
+			o[i].Xuat();
 			cout<<o[i].VanTocCoSo();
 			cout<<endl;
 		}
