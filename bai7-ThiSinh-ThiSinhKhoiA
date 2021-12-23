@@ -1,0 +1,113 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+class ThiSinh{
+	private:
+		string SoBaoDanh, HoTen;
+	protected:
+		float DiemUuTien;
+	public:
+		ThiSinh(string SoBaoDanh="",string HoTen="",float DiemUuTien=0);
+		~ThiSinh();
+		void Nhap();
+		void Xuat() const;
+};
+ThiSinh::ThiSinh(string SoBaoDanh,string HoTen,float DiemUuTien)
+{
+	this->SoBaoDanh = SoBaoDanh;
+	this->HoTen = HoTen;
+	this->DiemUuTien = DiemUuTien;
+}
+ThiSinh::~ThiSinh()
+{
+	SoBaoDanh;
+	HoTen;
+	DiemUuTien;
+}
+void ThiSinh::Nhap()
+{
+	cout<<"So bao danh : ";
+	fflush(stdin);
+	getline(cin,SoBaoDanh);
+	cout<<"Ho ten : ";
+	fflush(stdin);
+	getline(cin,HoTen);
+	cout<<"Diem uu tien : ";
+	cin>>DiemUuTien;
+}
+void ThiSinh::Xuat() const
+{
+	cout<<SoBaoDanh<<" "<<HoTen<<" "<<DiemUuTien<<" ";
+}
+class ThiSinhKhoiA : private ThiSinh{
+	private:
+		float DiemToan, DiemLy, DiemHoa;
+	public:
+		ThiSinhKhoiA();
+		~ThiSinhKhoiA();
+		void Nhap();
+		void Xuat() const;
+		float TongDiem()const;
+		bool XetTuyen() const;
+}; 
+ThiSinhKhoiA::ThiSinhKhoiA()
+{
+	DiemToan = DiemLy = DiemHoa = 0;
+}
+ThiSinhKhoiA::~ThiSinhKhoiA()
+{
+	DiemToan = DiemLy = DiemHoa = 0;
+}
+void ThiSinhKhoiA::Nhap()
+{
+	ThiSinh::Nhap();
+	cout<<"Diem toan ly hoa : ";
+	cin>>DiemToan>>DiemLy>>DiemHoa;
+}
+void ThiSinhKhoiA::Xuat() const
+{
+	ThiSinh::Xuat();
+	cout<<DiemToan<<" "<<DiemLy<<" "<<DiemHoa<<" ";
+}
+float ThiSinhKhoiA::TongDiem() const
+{
+	return DiemToan + DiemLy + DiemHoa + DiemUuTien;
+}
+bool ThiSinhKhoiA::XetTuyen() const
+{
+	return this->TongDiem()>=24.25;
+}
+int main()
+{
+	ThiSinh a;
+	a.Nhap();
+	a.Xuat();
+	ThiSinhKhoiA b[20];
+	int n;
+	cout<<"\nTong so Thi Sinh Khoi A : ";
+	cin>>n;
+	cout<<"Nhap thong tin Thi Sinh Khoi A :\n";
+	for(int i=0;i<n;i++)
+	{
+		b[i].Nhap();
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Thi Sinh Khoi A :\n";
+	for(int i=0;i<n;i++)
+	{
+		b[i].Xuat();
+		cout<<b[i].TongDiem();
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Thi Sinh Khoi A trung tuyen :\n";
+	for(int i=0;i<n;i++)
+	{
+		if(b[i].XetTuyen())
+		{
+			b[i].Xuat();
+			cout<<b[i].TongDiem();
+			cout<<endl;
+		}
+	}
+	return 0;
+}
