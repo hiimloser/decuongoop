@@ -104,7 +104,6 @@ int main()
 		cout<<a[i].TinhLuong();
 		cout<<endl;
 	}
-	cout<<"Thong tin Nhan Vien luong cao :\n";
 	float max = a[0].TinhLuong();
 	for(int i=0;i<n;i++)
 	{
@@ -113,14 +112,6 @@ int main()
 			max = a[i].TinhLuong();
 		}
 	}
-	for(int i=0;i<n;i++)
-	{
-		if(a[i].TinhLuong()==max)
-		{
-			a[i].Xuat();
-			cout<<a[i].TinhLuong();
-			cout<<endl;
-		}
-	}
+	cout<<"Luong cao nhat : "<< max;
 	return 0;
 }
