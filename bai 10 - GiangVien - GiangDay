@@ -1,0 +1,117 @@
+#include<iostream>
+using namespace std;
+class GiangVien{
+	private:
+		string MaGiangVien, TenGiangVien;
+	protected:
+		string BoMon;
+	public:
+		GiangVien();
+		~GiangVien();
+		void Nhap();
+		void Xuat() const;
+};
+GiangVien::GiangVien()
+{
+	MaGiangVien ="";
+	TenGiangVien ="";
+	BoMon="";
+}
+GiangVien::~GiangVien()
+{
+	MaGiangVien ="";
+	TenGiangVien ="";
+	BoMon="";
+}
+void GiangVien::Nhap()
+{
+	cout<<"Ma giang vien : ";
+	fflush(stdin);
+	getline(cin,MaGiangVien);
+	cout<<"Ten giang vien : ";
+	fflush(stdin);
+	getline(cin,TenGiangVien);
+	cout<<"Bo mon : ";
+	fflush(stdin);
+	getline(cin,BoMon);
+}
+void GiangVien::Xuat()const
+{
+	cout<<MaGiangVien<<" "<<TenGiangVien<<" "<<BoMon<<" ";
+}
+class GiangDay:private GiangVien{
+	private: 
+		string MaMon, MaLop;
+		int SoTinChi;
+	public:
+		GiangDay();
+		~GiangDay();
+		friend void operator >> (istream &is,GiangDay &s);
+		friend void operator << (ostream &os,const GiangDay &s);
+		bool KiemTra(string BoMon_SoSanh)const;
+};
+GiangDay::GiangDay()
+{
+	MaMon = "";
+	MaLop = "";
+	SoTinChi=0;
+}
+GiangDay::~GiangDay()
+{
+	MaMon = "";
+	MaLop = "";
+	SoTinChi=0;
+}
+void operator >> (istream &is,GiangDay &s)
+{
+	s.Nhap();
+	cout<<"Ma mon : ";
+	fflush(stdin);
+	getline(is,s.MaMon);
+	cout<<"Ma lop : ";
+	fflush(stdin);
+	getline(is,s.MaLop);
+	cout<<"So tin chi : ";
+	is>>s.SoTinChi;
+}
+void operator << (ostream &os,const GiangDay &s)
+{
+	s.Xuat();
+	os<<s.MaMon<<" "<<s.MaLop<<" "<<s.SoTinChi<<" ";
+}
+bool GiangDay::KiemTra(string BoMon_SoSanh)const
+{
+	return this->BoMon == BoMon_SoSanh;
+}
+int main()
+{
+	GiangVien a;
+	a.Nhap();
+	a.Xuat();
+	GiangDay b[20];
+	int n;
+	cout<<"\nTong so Giang Day : ";
+	cin>>n;
+	cout<<"Nhap thong tin Giang Day :\n";
+	for(int i=0;i<n;i++)
+	{
+		cin>>b[i];
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Giang Day :\n";
+	for(int i=0;i<n;i++)
+	{
+		cout<<b[i];
+		cout<<endl;
+	}
+	cout<<"Thong tin Cong Nghe Phan Mem :\n";
+	for(int i=0;i<n;i++)
+	{
+		if(b[i].KiemTra("Cong Nghe Phan Mem"))
+		{
+			cout<<b[i];
+			cout<<endl;
+		}
+	}
+	return 0;
+}
