@@ -1,0 +1,105 @@
+#include<iostream>
+using namespace std;
+class ThiSinh{
+	private:
+		string SoBaoDanh, HoTen;
+	protected:
+		float DiemUuTien;
+	public:
+		ThiSinh(string SoBaoDanh = "",string HoTen = "",float DiemUuTien = 0);
+		~ThiSinh();
+		void Nhap();
+		void Xuat() const;
+};
+ThiSinh::ThiSinh(string SoBaoDanh,string HoTen,float DiemUuTien)
+{
+	this->SoBaoDanh = SoBaoDanh;
+	this->HoTen = HoTen;
+	this->DiemUuTien = DiemUuTien; 
+}
+ThiSinh::~ThiSinh()
+{
+	SoBaoDanh;
+	HoTen;
+	DiemUuTien;
+}
+void ThiSinh::Nhap()
+{
+	cout<<"So bao danh : ";
+	fflush(stdin);
+	getline(cin,SoBaoDanh);
+	cout<<"Ho ten : ";
+	fflush(stdin);
+	getline(cin,HoTen);
+	cout<<"Diem uu tien : ";
+	cin>>DiemUuTien;
+}
+void ThiSinh::Xuat() const
+{
+	cout<<SoBaoDanh<<" "<<HoTen<<" "<<DiemUuTien<<" ";
+}
+class ThiSinhKhoiD : private ThiSinh{
+	private:
+		float DiemVan, DiemToan, DiemAnh;
+	public:
+		ThiSinhKhoiD();
+		~ThiSinhKhoiD();
+		float TongDiem() const;
+		friend void operator >> (istream &is,ThiSinhKhoiD &s);
+		friend void operator << (ostream &os,const ThiSinhKhoiD &s);
+};
+ThiSinhKhoiD::ThiSinhKhoiD()
+{
+	DiemVan = DiemToan = DiemAnh = 0;
+}
+ThiSinhKhoiD::~ThiSinhKhoiD()
+{
+	DiemVan = DiemToan = DiemAnh = 0;
+}
+void operator >> (istream &is,ThiSinhKhoiD &s)
+{
+	s.Nhap();
+	cout<<"Nhap diem van toan anh : ";
+	is>>s.DiemVan >>s.DiemToan >>s.DiemAnh;
+}
+void operator << (ostream &os,const ThiSinhKhoiD &s)
+{
+	s.Xuat();
+	os<<s.DiemVan<<" "<<s.DiemToan<<" "<<s.DiemAnh<<" ";
+}
+float ThiSinhKhoiD::TongDiem() const
+{
+	return DiemVan + DiemToan + DiemAnh + DiemUuTien;
+}
+int main()
+{
+	ThiSinh a;
+	a.Nhap();
+	a.Xuat();
+	ThiSinhKhoiD b[20];
+	int n;
+	cout<<"\nTong so Thi Sinh Khoi D : ";
+	cin>>n;
+	cout<<"Nhap thong tin Thi Sinh Khoi D :\n";
+	for(int i=0;i<n;i++)
+	{
+		cin>>b[i];
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Thi Sinh Khoi D :\n";
+	for(int i=0;i<n;i++)
+	{
+		cout<<b[i];
+		cout<<b[i].TongDiem()<<endl;
+	}
+	float max = b[0].TongDiem();
+	for(int i=0;i<n;i++)
+	{
+		if(max<b[i].TongDiem())
+		{
+			max = b[i].TongDiem();
+		}
+	}
+	cout<<"Tong diem cao nhat : "<<max;
+	return 0;
+}
