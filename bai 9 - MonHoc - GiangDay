@@ -1,0 +1,123 @@
+#include<iostream>
+using namespace std;
+class MonHoc{
+	private:
+		string MaMon, TenMon;
+	protected:
+		int SoTinChi;
+	public:
+		MonHoc(string  MaMon = "",string TenMon = "");
+		~MonHoc();
+		void Nhap();
+		void Xuat() const;
+};
+MonHoc::MonHoc(string  MaMon,string TenMon )
+{
+	this->MaMon = MaMon;
+	this->TenMon = TenMon;
+	SoTinChi = 0;
+}
+MonHoc::~MonHoc()
+{
+	this->MaMon = "";
+	this->TenMon = "";
+	SoTinChi = 0;
+}
+void MonHoc::Nhap()
+{
+	cout<<"Ma mon : ";
+	fflush(stdin);
+	getline(cin,MaMon);
+	cout<<"Ten mon : ";
+	fflush(stdin);
+	getline(cin,TenMon);
+	cout<<"So tin chi : ";
+	cin>>SoTinChi;
+}
+void MonHoc::Xuat() const
+{
+	cout<<MaMon<<" "<<TenMon<<" "<<SoTinChi<<" ";
+}
+class GiangDay:private MonHoc{
+	private:
+		string MaGiangVien, MaLop;
+		int SoTietDaDay;
+	public:
+		GiangDay();
+		~GiangDay();
+		void Nhap();
+		void Xuat() const;
+		int SoTietConLai() const;
+};
+GiangDay::GiangDay()
+{
+	MaGiangVien = "";
+	MaLop = "";
+	SoTietDaDay = 0;
+}
+GiangDay::~GiangDay()
+{
+	MaGiangVien = "";
+	MaLop = "";
+	SoTietDaDay = 0;
+}
+void GiangDay::Nhap()
+{
+	MonHoc::Nhap();
+	cout<<"Ma giang vien : ";
+	fflush(stdin);
+	getline(cin,MaGiangVien);
+	cout<<"Ma lop : ";
+	fflush(stdin);
+	getline(cin,MaLop);
+	cout<<"So tiet da day : ";
+	cin>>SoTietDaDay;
+}
+void GiangDay::Xuat() const
+{
+	MonHoc::Xuat();
+	cout<<MaGiangVien<<" "<<MaLop<<" "<<SoTietDaDay<<" ";
+}
+int GiangDay::SoTietConLai() const
+{
+	return SoTinChi * 15 - SoTietDaDay;
+}
+int main()
+{
+	MonHoc a;
+	a.Nhap();
+	a.Xuat();
+	GiangDay b[20];
+	int n;
+	cout<<"\nTong so giang day : ";
+	cin>>n;
+	cout<<"Nhap thong tin Giang Day :\n";
+	for(int i=0;i<n;i++)
+	{
+		b[i].Nhap();
+		cout<<endl;
+	}
+	cout<<"Xuat thong tin Giang Day :\n";
+	for(int i=0;i<n;i++)
+	{
+		b[i].Xuat();
+		cout<<b[i].SoTietConLai()<<endl;
+	}
+	cout<<"Thong tin sap xep : \n";
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=i+1;j<n;j++)
+		{
+			if(b[i].SoTietConLai()<b[j].SoTietConLai())
+			{
+				swap(b[i],b[j]);
+			}
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		b[i].Xuat();
+		cout<<b[i].SoTietConLai()<<endl;
+	}
+	return 0;
+}
