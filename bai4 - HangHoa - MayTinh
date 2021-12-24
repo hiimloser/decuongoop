@@ -99,7 +99,6 @@ int main()
 		cout<<b[i].GiaNhap();
 		cout<<endl;
 	}
-	cout<<"Gia nhap thap nhat : \n";
 	float min = b[0].GiaNhap();
 	for(int i=0;i<n;i++)
 	{
@@ -108,14 +107,6 @@ int main()
 			min = b[i].GiaNhap();
 		}
 	}
-	for(int i=0;i<n;i++)
-	{
-		if(b[i].GiaNhap()==min)
-		{
-			b[i].Xuat();
-			cout<<b[i].GiaNhap();
-			cout<<endl;
-		}
-	}
+	cout<<"Gia nhap thap nhat : "<<min;
 	return 0;
 }
